@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="it.ifis.test.lf20.authentication.WhenAuthenticating" skipped="0" tests="1" time="24.94" timestamp="2018-07-06 10:29:32"><testcase classname="it.ifis.test.lf20.authentication.WhenAuthenticating" name="Should be able to login as lega le interno"/></testsuite>
