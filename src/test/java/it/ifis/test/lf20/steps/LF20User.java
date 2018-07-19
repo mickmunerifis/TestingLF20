@@ -26,7 +26,7 @@ public class LF20User {
 	
 	@Step
     public void shouldBeOnHomePageOrWorkstationListPage() {
-		// attenzione: atterraggio in pagina con lista woirkstation non ancora gestita
+		// attenzione: atterraggio in pagina con lista workstation non ancora gestita
 		assertTrue(homePage.hasLegalFactoryLabel());
     }
 
