@@ -1,7 +1,0 @@
-it\ifis\test\lf20\ui\HomePage.class
-it\ifis\test\lf20\steps\LF20User.class
-it\ifis\test\lf20\ui\LoginPage.class
-it\ifis\test\lf20\navigation\WhenNavigatingToCreazioneFascicolo.class
-it\ifis\test\lf20\models\MenuLink.class
-it\ifis\test\lf20\ui\MenuLinkNavigation.class
-it\ifis\test\lf20\authentication\WhenAuthenticating.class
