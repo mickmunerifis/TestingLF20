@@ -1,1 +1,41 @@
+.tern_project
+.metadata
+.metadata_OLD
+.recommenders
+RemoteSystemsTempFiles
+bin
+target
+.classpath
+.project
+.settings
+*.iml
+.idea
+sonar-project.properties
+.sonarlint/
+# folders and file extensions
+*.diff
+*.err
+*.log
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+*.zip
+*~
+.cache
+.DS_Store
+Thumbs.db
 
+# editors' files
+.tmproj
+*.esproj
+*.sublime-workspace
+nbproject
+
+# build and automatically managed directories
+bower_components/
+node_modules/
+build/
+dist/
+vendor/
