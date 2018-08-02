@@ -25,7 +25,7 @@ public class LoginPage extends PageObject {
 		Dimension dimension = new Dimension(1600, 900);
 		getDriver().manage().window().setSize(dimension);
 	    getDriver().findElement(By.name("username")).sendKeys("mraviolo.test");	    
-	    getDriver().findElement(By.name("password")).sendKeys("Aprile2018");
+	    getDriver().findElement(By.name("password")).sendKeys("Luglio2018");
 	    WebElement submitButton = getDriver().findElement(By.cssSelector("*[type='submit']"));
 	    submitButton.click();
 	}

@@ -2,7 +2,9 @@ package it.ifis.test.lf20.models;
 
 public enum MenuLink {
 	CreazioneFascicolo("Creazione fascicolo"),
-	Cruscotto("Cruscotto");
+	Cruscotto("Cruscotto"),	
+	Opposizioni("Opposizioni"),
+	RichiestaAttiIntervento("Richiesta atti intervento");
 	
 	private String menuLinkName;
 

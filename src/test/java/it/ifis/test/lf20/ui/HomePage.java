@@ -1,15 +1,11 @@
 package it.ifis.test.lf20.ui;
 
 
-import java.time.temporal.TemporalUnit;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.server.handler.FindElement;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
@@ -59,8 +55,11 @@ public class HomePage extends PageObject {
 		WebElement popupTestEnv = getDriver().findElement(By.id("dialogContent_2"));
 		System.out.println("***** closePopupWithEsc, popupTestEnv: " + popupTestEnv);
 		System.out.println("***** closePopupWithEsc, popupTestEnv: 1" );
-		WebElement element1 = getDriver().findElement(By.xpath("//html/body/div[3]/md-dialog/md-dialog-content/div/div/div/button[1]"));
-		element1.click();
+		Actions actions = new Actions(getDriver());
+		actions.sendKeys(Keys.ESCAPE).perform();
+		
+		//WebElement element1 = getDriver().findElement(By.xpath("//html/body/div[3]/md-dialog/md-dialog-content/div/div/div/button[1]"));
+		//element1.click();
 		System.out.println("***** closePopupWithEsc, popupTestEnv: 2" );
 		
 	}
