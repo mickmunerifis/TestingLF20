@@ -1,11 +1,10 @@
 package it.ifis.test.lf20.authentication;
 
-import it.ifis.test.lf20.steps.LF20User;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
+import it.ifis.test.lf20.steps.LF20User;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
