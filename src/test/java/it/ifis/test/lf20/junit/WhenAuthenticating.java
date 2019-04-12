@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
-import it.ifis.test.lf20.steps.LF20User;
+import it.ifis.test.lf20.steps.LF20UserSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -20,7 +20,7 @@ public class WhenAuthenticating {
 	
 	/** The user. */
 	@Steps
-	private LF20User user;
+	private LF20UserSteps user;
 	
 	/** The browser. */
 	@Managed(driver = "chrome")
@@ -31,8 +31,6 @@ public class WhenAuthenticating {
 	 */
 	@Test
     public void shouldBeAbleToLoginAsLegaLeInterno() {
-		user.isOnTheLoginPage();		
-        user.logsInAsLegaleInterno();        
-        user.shouldBeOnHomePageOrWorkstationListPage();        
+		user.goToHomePage();		
     }
 }

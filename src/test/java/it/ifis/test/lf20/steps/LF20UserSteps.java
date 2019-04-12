@@ -13,7 +13,7 @@ import net.thucydides.core.annotations.Step;
 /**
  * The Class LF20User.
  */
-public class LF20User {
+public class LF20UserSteps {
 	
 	/** The home page. */
 	private HomePage homePage;
@@ -28,10 +28,10 @@ public class LF20User {
 	private PopupPage popupPage;
 	
 	/**
-	 * Checks if is on the login page.
+	 * Open login page.
 	 */
 	@Step
-	public void isOnTheLoginPage() {
+	public void openLoginPage() {
         loginPage.open();
     }
 
@@ -50,6 +50,16 @@ public class LF20User {
     public void shouldBeOnHomePageOrWorkstationListPage() {
 		// TODO: atterraggio in pagina con lista workstation non ancora gestita
 		assertTrue(homePage.hasLegalFactoryLabel());
+    }
+	
+	/**
+	 * Go to home page.
+	 */
+	@Step
+    public void goToHomePage() {
+		openLoginPage();
+		logsInAsLegaleInterno();
+		shouldBeOnHomePageOrWorkstationListPage();
     }
 
 	/**
