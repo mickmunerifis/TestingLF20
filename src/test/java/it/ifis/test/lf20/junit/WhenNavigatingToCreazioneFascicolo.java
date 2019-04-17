@@ -19,28 +19,30 @@ import net.thucydides.core.annotations.Steps;
  */
 @RunWith(SerenityRunner.class)
 public class WhenNavigatingToCreazioneFascicolo {
-	
+
 	/** The user. */
 	@Steps
-    private LF20UserSteps user;
-	
-    /** The browser. */
-    @Managed(driver = "chrome")
-    WebDriver browser;
-    
-    /**
-     * Go to home page.
-     */
-    @Before
-    public void goToHomePage() {
-      user.goToHomePage();
-   }
-    
-    /**
-     * Testa la creazione di un fascicolo.
-     */
-    @Test
-    public void shouldBeAbleToCreateFascicolo() {
-        user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
-    }
+	private LF20UserSteps user;
+
+	/** The browser. */
+	@Managed(driver = "chrome")
+	WebDriver browser;
+
+	/**
+	 * Go to home page.
+	 */
+	@Before
+	public void goToHomePage() {
+		user.goToHomePage();
+	}
+
+	/**
+	 * Testa la creazione di un fascicolo.
+	 */
+	@Test
+	public void shouldBeAbleToCreateFascicolo() {
+		user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
+
+		user.clickModificaFascicolo();
+	}
 }

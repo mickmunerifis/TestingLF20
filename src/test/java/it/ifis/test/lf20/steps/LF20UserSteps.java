@@ -4,63 +4,68 @@ import static org.junit.Assert.assertTrue;
 
 import it.ifis.test.lf20.models.MenuLink;
 import it.ifis.test.lf20.models.Popup;
+import it.ifis.test.lf20.models.Table;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
-import it.ifis.test.lf20.ui.MenuLinkNavigation;
+import it.ifis.test.lf20.ui.MenuLinkNavigationPage;
 import it.ifis.test.lf20.ui.PopupPage;
+import it.ifis.test.lf20.ui.TablePage;
 import net.thucydides.core.annotations.Step;
 
 /**
  * The Class LF20User.
  */
 public class LF20UserSteps {
-	
+
 	/** The home page. */
 	private HomePage homePage;
-	
+
 	/** The login page. */
 	private LoginPage loginPage;
-	
+
 	/** The menu link navigation. */
-	private MenuLinkNavigation menuLinkNavigation;
-	
+	private MenuLinkNavigationPage menuLinkNavigationPage;
+
 	/** The popup page. */
 	private PopupPage popupPage;
-	
+
+	/** The table page. */
+	private TablePage tablePage;
+
 	/**
 	 * Open login page.
 	 */
 	@Step
 	public void openLoginPage() {
-        loginPage.open();
-    }
+		loginPage.open();
+	}
 
 	/**
 	 * Logs in as legale interno.
 	 */
 	@Step("Autenticazione come Legale Interno")
-    public void logsInAsLegaleInterno() {
-        loginPage.loginAsLegaleInterno();
-    }
-	
+	public void logsInAsLegaleInterno() {
+		loginPage.loginAsLegaleInterno();
+	}
+
 	/**
 	 * Should be on home page or workstation list page.
 	 */
 	@Step
-    public void shouldBeOnHomePageOrWorkstationListPage() {
+	public void shouldBeOnHomePageOrWorkstationListPage() {
 		// TODO: atterraggio in pagina con lista workstation non ancora gestita
 		assertTrue(homePage.hasLegalFactoryLabel());
-    }
-	
+	}
+
 	/**
 	 * Go to home page.
 	 */
 	@Step
-    public void goToHomePage() {
+	public void goToHomePage() {
 		openLoginPage();
 		logsInAsLegaleInterno();
 		shouldBeOnHomePageOrWorkstationListPage();
-    }
+	}
 
 	/**
 	 * Navigates to menu link.
@@ -69,14 +74,27 @@ public class LF20UserSteps {
 	 */
 	@Step
 	public void navigatesToMenuLink(MenuLink link) {
+		System.out.println("LF20UserSteps.navigatesToMenuLink: " + link);
+
 		if (homePage.hasSpinner())
 			homePage.waitEndOfSpinner();
-		
+
 		if (popupPage.hasPopup(Popup.COURTESY_TEST_ENVIRONMENT))
 			popupPage.closePopupWithEsc(Popup.COURTESY_TEST_ENVIRONMENT);
-		
-		System.out.println("***** navigatesToMenuLink 1");
-		menuLinkNavigation.selectMenuLink(link);
-		System.out.println("***** navigatesToMenuLink 999");
+
+		menuLinkNavigationPage.selectMenuLink(link);
+
+		if (homePage.hasSpinner())
+			homePage.waitEndOfSpinner();
+		System.out.println("LF20UserSteps.navigatesToMenuLink - END");
 	}
+
+	/**
+	 * Click modifica fascicolo.
+	 */
+	@Step
+	public void clickModificaFascicolo() {
+		tablePage.clickButton(Table.TABLE_ELENCO_FASCICOLI_AFFIDATI, Table.BUTTON_MODIFICA_FASCICOLO);
+	}
+
 }
