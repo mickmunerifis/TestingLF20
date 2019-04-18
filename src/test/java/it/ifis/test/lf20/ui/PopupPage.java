@@ -23,8 +23,10 @@ public class PopupPage extends PageObject {
 	 * @return true, if successful
 	 */
 	public boolean hasPopup(Popup popup) {
-		return commonPage.isElementPresent(By.id(popup.getPopupName()))
+		boolean hasPopup = commonPage.isElementPresent(By.id(popup.getPopupName()))
 				&& isElementVisible(By.id(popup.getPopupName()));
+//		System.out.println("hasPopup " + popup + ": " + hasPopup);
+		return hasPopup;
 	}
 
 	/**
@@ -38,8 +40,12 @@ public class PopupPage extends PageObject {
 		Actions actions = new Actions(getDriver());
 		actions.sendKeys(Keys.ESCAPE).perform();
 
-		if (hasPopup(popup))
-			waitForRenderedElementsToDisappear(By.id(popup.getPopupName()));
+//		if (hasPopup(popup))
+//			waitForRenderedElementsToDisappear(By.id(popup.getPopupName()));
+
+		while (hasPopup(popup)) {
+			// wait
+		}
 
 		System.out.println("closePopupWithEsc, " + popup + " - END");
 	}

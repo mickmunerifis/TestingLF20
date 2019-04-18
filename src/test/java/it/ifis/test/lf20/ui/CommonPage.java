@@ -11,6 +11,16 @@ import net.serenitybdd.core.pages.PageObject;
 public class CommonPage extends PageObject {
 
 	/**
+	 * Gets the element.
+	 *
+	 * @param by the by
+	 * @return the element
+	 */
+	public WebElement getElement(By by) {
+		return getDriver().findElement(by);
+	}
+
+	/**
 	 * Checks if the element is present.
 	 *
 	 * @param by the by
@@ -35,7 +45,30 @@ public class CommonPage extends PageObject {
 		return getDriver().findElement(by).isDisplayed();
 	}
 
-	public WebElement getElement(By by) {
-		return getDriver().findElement(by);
+	/**
+	 * Checks for spinner.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean hasSpinner() {
+		boolean hasSpinner = isElementPresent(By.tagName("arch-loading"))
+				&& isElementVisible(By.tagName("arch-loading"));
+//		System.out.println("hasSpinner: " + hasSpinner);
+		return hasSpinner;
+	}
+
+	/**
+	 * Wait end of spinner.
+	 */
+	public void waitEndOfSpinner() {
+		System.out.println("waitEndOfSpinner - START");
+//		if (hasSpinner())
+//			waitForRenderedElementsToDisappear(By.tagName("arch-loading"));
+
+		while (hasSpinner()) {
+			// wait
+		}
+
+		System.out.println("waitEndOfSpinner - END");
 	}
 }

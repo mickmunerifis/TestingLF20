@@ -13,8 +13,6 @@ import net.thucydides.core.webdriver.TemporalUnitConverter;
  */
 public class HomePage extends PageObject {
 
-	private CommonPage commonPage;
-
 	/**
 	 * Checks for legal factory label.
 	 *
@@ -26,22 +24,5 @@ public class HomePage extends PageObject {
 		WebElement labelLF20 = getDriver()
 				.findElement(By.cssSelector("*[class='main-title md-truncate ng-binding flex']"));
 		return labelLF20.getText().trim().indexOf("Legal Factory") != -1;
-	}
-
-	/**
-	 * Checks for spinner.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean hasSpinner() {
-		return commonPage.isElementPresent(By.tagName("arch-loading")) && isElementVisible(By.tagName("arch-loading"));
-	}
-
-	/**
-	 * Wait end of spinner.
-	 */
-	public void waitEndOfSpinner() {
-		if (hasSpinner())
-			waitForRenderedElementsToDisappear(By.tagName("arch-loading"));
 	}
 }

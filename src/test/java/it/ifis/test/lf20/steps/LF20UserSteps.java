@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import it.ifis.test.lf20.models.MenuLink;
 import it.ifis.test.lf20.models.Popup;
 import it.ifis.test.lf20.models.Table;
+import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
 import it.ifis.test.lf20.ui.MenuLinkNavigationPage;
@@ -16,6 +17,9 @@ import net.thucydides.core.annotations.Step;
  * The Class LF20User.
  */
 public class LF20UserSteps {
+
+	/** The common page. */
+	private CommonPage commonPage;
 
 	/** The home page. */
 	private HomePage homePage;
@@ -76,16 +80,16 @@ public class LF20UserSteps {
 	public void navigatesToMenuLink(MenuLink link) {
 		System.out.println("LF20UserSteps.navigatesToMenuLink: " + link);
 
-		if (homePage.hasSpinner())
-			homePage.waitEndOfSpinner();
+		if (commonPage.hasSpinner())
+			commonPage.waitEndOfSpinner();
 
 		if (popupPage.hasPopup(Popup.COURTESY_TEST_ENVIRONMENT))
 			popupPage.closePopupWithEsc(Popup.COURTESY_TEST_ENVIRONMENT);
 
 		menuLinkNavigationPage.selectMenuLink(link);
 
-		if (homePage.hasSpinner())
-			homePage.waitEndOfSpinner();
+		if (commonPage.hasSpinner())
+			commonPage.waitEndOfSpinner();
 		System.out.println("LF20UserSteps.navigatesToMenuLink - END");
 	}
 

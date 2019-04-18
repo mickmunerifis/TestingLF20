@@ -40,7 +40,7 @@ public class TablePage extends PageObject {
 					System.out.println("Button found");
 					button.click();
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
