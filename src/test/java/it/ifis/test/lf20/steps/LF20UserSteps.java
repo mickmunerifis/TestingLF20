@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import it.ifis.test.lf20.models.MenuLink;
 import it.ifis.test.lf20.models.Popup;
-import it.ifis.test.lf20.models.Table;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
@@ -36,6 +35,10 @@ public class LF20UserSteps {
 	/** The table page. */
 	private TablePage tablePage;
 
+	public HomePage getHomePage() {
+		return homePage;
+	}
+
 	/**
 	 * Open login page.
 	 */
@@ -58,7 +61,7 @@ public class LF20UserSteps {
 	@Step
 	public void shouldBeOnHomePageOrWorkstationListPage() {
 		// TODO: atterraggio in pagina con lista workstation non ancora gestita
-		assertTrue(homePage.hasLegalFactoryLabel());
+		assertTrue(homePage.pageHasLegalFactoryLabel());
 	}
 
 	/**
@@ -97,8 +100,8 @@ public class LF20UserSteps {
 	 * Click modifica fascicolo.
 	 */
 	@Step
-	public void clickModificaFascicolo() {
-		tablePage.clickButton(Table.TABLE_ELENCO_FASCICOLI_AFFIDATI, Table.BUTTON_MODIFICA_FASCICOLO);
+	public void clickModificaFascicoloSuDebitore() {
+		tablePage.clickButtonModificaFascicoloInFascicoliAffidati("Debitore");
 	}
 
 }

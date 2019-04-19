@@ -1,5 +1,7 @@
 package it.ifis.test.lf20.junit;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import it.ifis.test.lf20.models.MenuLink;
 import it.ifis.test.lf20.steps.LF20UserSteps;
+import it.ifis.test.lf20.ui.HomePage;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -42,7 +45,9 @@ public class WhenNavigatingToCreazioneFascicolo {
 	@Test
 	public void shouldBeAbleToCreateFascicolo() {
 		user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
+		assertTrue(user.getHomePage().pageHasPageTitle(HomePage.FASCICOLI_PROVVISORI));
 
-		user.clickModificaFascicolo();
+		user.clickModificaFascicoloSuDebitore();
+		assertTrue(user.getHomePage().pageHasPageTitle(HomePage.CREA_FASCICOLO));
 	}
 }
