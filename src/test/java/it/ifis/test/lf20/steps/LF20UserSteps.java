@@ -1,9 +1,11 @@
+/*
+ * 
+ */
 package it.ifis.test.lf20.steps;
 
 import static org.junit.Assert.assertTrue;
 
 import it.ifis.test.lf20.models.MenuLink;
-import it.ifis.test.lf20.models.Popup;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
@@ -29,14 +31,28 @@ public class LF20UserSteps {
 	/** The menu link navigation. */
 	private MenuLinkNavigationPage menuLinkNavigationPage;
 
-	/** The popup page. */
-	private PopupPage popupPage;
-
 	/** The table page. */
 	private TablePage tablePage;
 
-	public HomePage getHomePage() {
-		return homePage;
+	/** The popup page. */
+	private PopupPage popupPage;
+
+	/**
+	 * Gets the common page.
+	 *
+	 * @return the common page
+	 */
+	public CommonPage getCommonPage() {
+		return commonPage;
+	}
+
+	/**
+	 * Gets the popup page.
+	 *
+	 * @return the popup page
+	 */
+	public PopupPage getPopupPage() {
+		return popupPage;
 	}
 
 	/**
@@ -82,12 +98,6 @@ public class LF20UserSteps {
 	@Step
 	public void navigatesToMenuLink(MenuLink link) {
 		System.out.println("LF20UserSteps.navigatesToMenuLink: " + link);
-
-		if (commonPage.hasSpinner())
-			commonPage.waitEndOfSpinner();
-
-		if (popupPage.hasPopup(Popup.COURTESY_TEST_ENVIRONMENT))
-			popupPage.closePopupWithEsc(Popup.COURTESY_TEST_ENVIRONMENT);
 
 		menuLinkNavigationPage.selectMenuLink(link);
 

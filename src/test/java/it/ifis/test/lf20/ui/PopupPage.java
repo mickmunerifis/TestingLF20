@@ -49,4 +49,15 @@ public class PopupPage extends PageObject {
 
 		System.out.println("closePopupWithEsc, " + popup + " - END");
 	}
+
+	/**
+	 * Wait for spinner and courtesy dialog.
+	 */
+	public void waitForSpinnerAndCourtesyDialog() {
+		if (commonPage.hasSpinner())
+			commonPage.waitEndOfSpinner();
+
+		if (hasPopup(Popup.COURTESY_TEST_ENVIRONMENT))
+			closePopupWithEsc(Popup.COURTESY_TEST_ENVIRONMENT);
+	}
 }

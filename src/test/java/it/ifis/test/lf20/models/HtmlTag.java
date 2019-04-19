@@ -17,6 +17,11 @@ public enum HtmlTag {
 	/** The md icon. */
 	MD_ICON("md-icon"),
 
+	/** The md tab item. */
+	MD_TAB_ITEM("md-tab-item"),
+
+	SPAN("span"),
+
 	/** The aria label. */
 	ARIA_LABEL("aria-label"),
 

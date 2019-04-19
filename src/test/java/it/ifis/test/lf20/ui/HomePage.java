@@ -13,15 +13,6 @@ import net.thucydides.core.webdriver.TemporalUnitConverter;
  */
 public class HomePage extends PageObject {
 
-	/** The Constant LEGAL_FACTORY. */
-	public static final String LEGAL_FACTORY = "Legal Factory";
-
-	/** The Constant FASCICOLI_PROVVISORI. */
-	public static final String FASCICOLI_PROVVISORI = "Fascicoli provvisori";
-
-	/** The Constant CREA_FASCICOLO. */
-	public static final String CREA_FASCICOLO = "Crea fascicolo";
-
 	/**
 	 * Page has legal factory label.
 	 *
@@ -34,17 +25,5 @@ public class HomePage extends PageObject {
 				.findElement(By.cssSelector("*[class='main-title md-truncate ng-binding flex']"));
 
 		return labelLF20.getText().trim().indexOf("Legal Factory") != -1;
-	}
-
-	/**
-	 * Page has page title.
-	 *
-	 * @param label the label
-	 * @return true, if successful
-	 */
-	public boolean pageHasPageTitle(String label) {
-		WebElement element = getDriver().findElement(By.cssSelector("*[pagetitle='" + label + "']"));
-
-		return element != null;
 	}
 }

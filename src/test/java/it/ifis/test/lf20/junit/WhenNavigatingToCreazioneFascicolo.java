@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import it.ifis.test.lf20.models.MenuLink;
 import it.ifis.test.lf20.steps.LF20UserSteps;
-import it.ifis.test.lf20.ui.HomePage;
+import it.ifis.test.lf20.ui.CommonPage;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -44,10 +44,14 @@ public class WhenNavigatingToCreazioneFascicolo {
 	 */
 	@Test
 	public void shouldBeAbleToCreateFascicolo() {
+		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
+
 		user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
-		assertTrue(user.getHomePage().pageHasPageTitle(HomePage.FASCICOLI_PROVVISORI));
+		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.FASCICOLI_PROVVISORI));
+
+		user.getCommonPage().closeTab(CommonPage.TAB_CRUSCOTTO);
 
 		user.clickModificaFascicoloSuDebitore();
-		assertTrue(user.getHomePage().pageHasPageTitle(HomePage.CREA_FASCICOLO));
+		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.CREA_FASCICOLO));
 	}
 }
