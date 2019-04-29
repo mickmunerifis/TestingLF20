@@ -18,8 +18,8 @@ import net.serenitybdd.core.pages.PageObject;
  */
 public class TablePage extends PageObject {
 
-	/** The common page. */
-	private CommonPage commonPage;
+	/** The checkbox page. */
+	private CheckboxPage checkboxPage;
 
 	/**
 	 * Click a button of the table.
@@ -32,7 +32,7 @@ public class TablePage extends PageObject {
 		System.out.println("Click button: " + buttonName);
 
 		// recupera la tabella richiesta
-		WebElement table = commonPage.getElement(By.cssSelector("*[table-title='" + tableName.getName() + "']"));
+		WebElement table = getDriver().findElement(By.cssSelector("*[table-title='" + tableName.getName() + "']"));
 		System.out.println("Table found");
 
 		boolean buttonClicked = false;
@@ -94,8 +94,8 @@ public class TablePage extends PageObject {
 		System.out.println("Click button: " + Table.BUTTON_MODIFICA_FASCICOLO);
 
 		// recupera la tabella "elenco fascicoli affidati"
-		WebElement table = commonPage
-				.getElement(By.cssSelector("*[table-title='" + Table.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName() + "']"));
+		WebElement table = getDriver().findElement(
+				By.cssSelector("*[table-title='" + Table.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName() + "']"));
 		System.out.println("Table found");
 
 		boolean buttonClicked = false;
@@ -167,6 +167,46 @@ public class TablePage extends PageObject {
 		// se il bottone non è stato cliccato --> assert FALSE
 		if (!buttonClicked) {
 			assertTrue(false);
+		}
+	}
+
+	/**
+	 * Select all pratiche in pratiche collegate.
+	 */
+	public void selectAllPraticheInPraticheCollegate() {
+		System.out.println("Find table: " + Table.TABLE_PRATICHE_COLLEGATE);
+
+		// recupera la tabella "pratiche collegate"
+		WebElement table = getDriver()
+				.findElement(By.cssSelector("*[table-title='" + Table.TABLE_PRATICHE_COLLEGATE.getName() + "']"));
+		System.out.println("Table found");
+
+		// recupera le righe
+		List<WebElement> rows = table.findElements(By.tagName(HtmlTag.TR.getName()));
+		while (!rows.isEmpty()) {
+			int rowCount = 0;
+
+			for (WebElement row : rows) {
+				System.out.println("Row: " + rowCount);
+
+				// salta l'header
+				if (rowCount == 0) {
+					rowCount++;
+					continue;
+				}
+
+				// recupera e clicca la checkbox
+				checkboxPage.clickCheckbox(row, null);
+//				WebElement checkbox = row.findElement(By.tagName(HtmlTag.MD_CHECKBOX.getName()));
+//
+//				Actions action = new Actions(getDriver());
+//				action.moveToElement(checkbox).click(checkbox).build().perform();
+
+				rowCount++;
+			}
+
+			// recupera le righe della prossima pagina (se presente)
+			rows = getNextRows(table);
 		}
 	}
 

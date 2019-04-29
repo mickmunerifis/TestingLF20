@@ -5,7 +5,9 @@ package it.ifis.test.lf20.steps;
 
 import static org.junit.Assert.assertTrue;
 
+import it.ifis.test.lf20.models.Checkbox;
 import it.ifis.test.lf20.models.MenuLink;
+import it.ifis.test.lf20.ui.CheckboxPage;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
@@ -36,6 +38,9 @@ public class LF20UserSteps {
 
 	/** The popup page. */
 	private PopupPage popupPage;
+
+	/** The checkbox page. */
+	private CheckboxPage checkboxPage;
 
 	/**
 	 * Gets the common page.
@@ -112,6 +117,15 @@ public class LF20UserSteps {
 	@Step
 	public void clickModificaFascicoloSuDebitore() {
 		tablePage.clickButtonModificaFascicoloInFascicoliAffidati("Debitore");
+	}
+
+	/**
+	 * Crea fascicolo legalizzato in oda.
+	 */
+	@Step
+	public void creaFascicoloLegalizzatoInOda() {
+		checkboxPage.clickCheckbox(null, Checkbox.CHECKBOX_FASCICOLO_LEGALIZZATO);
+		tablePage.selectAllPraticheInPraticheCollegate();
 	}
 
 }

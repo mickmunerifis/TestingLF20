@@ -40,10 +40,10 @@ public class WhenNavigatingToCreazioneFascicolo {
 	}
 
 	/**
-	 * Testa la creazione di un fascicolo.
+	 * Testa la creazione di un fascicolo legalizzato in OdA.
 	 */
 	@Test
-	public void shouldBeAbleToCreateFascicolo() {
+	public void shouldBeAbleToCreateFascicoloLegalizzatoInOda() {
 		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
 
 		user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
@@ -53,5 +53,13 @@ public class WhenNavigatingToCreazioneFascicolo {
 
 		user.clickModificaFascicoloSuDebitore();
 		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.CREA_FASCICOLO));
+
+		user.creaFascicoloLegalizzatoInOda();
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

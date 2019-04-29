@@ -27,16 +27,6 @@ public class CommonPage extends PageObject {
 	public static final String CREA_FASCICOLO = "Crea fascicolo";
 
 	/**
-	 * Gets the element.
-	 *
-	 * @param by the by
-	 * @return the element
-	 */
-	public WebElement getElement(By by) {
-		return getDriver().findElement(by);
-	}
-
-	/**
 	 * Checks if the element is present.
 	 *
 	 * @param by the by
