@@ -3,7 +3,7 @@ package it.ifis.test.lf20.models;
 /**
  * Enumeration delle voci di menu.
  */
-public enum MenuLink {
+public enum EnumMenuLink {
 	
 	/** Creazione fascicolo. */
 	CREAZIONE_FASCICOLO("Creazione fascicolo"),
@@ -25,7 +25,7 @@ public enum MenuLink {
 	 *
 	 * @param menuLinkName the menu link name
 	 */
-	private MenuLink(String menuLinkName) {
+	private EnumMenuLink(String menuLinkName) {
 		this.menuLinkName = menuLinkName;
 	}
 

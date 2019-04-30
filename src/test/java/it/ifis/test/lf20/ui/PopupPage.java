@@ -5,7 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import it.ifis.test.lf20.models.Popup;
+import it.ifis.test.lf20.models.EnumPopup;
 import net.serenitybdd.core.pages.PageObject;
 
 /**
@@ -22,7 +22,7 @@ public class PopupPage extends PageObject {
 	 * @param popup the popup
 	 * @return true, if successful
 	 */
-	public boolean hasPopup(Popup popup) {
+	public boolean hasPopup(EnumPopup popup) {
 		boolean hasPopup = commonPage.isElementPresent(By.id(popup.getPopupName()))
 				&& isElementVisible(By.id(popup.getPopupName()));
 //		System.out.println("hasPopup " + popup + ": " + hasPopup);
@@ -34,7 +34,7 @@ public class PopupPage extends PageObject {
 	 *
 	 * @param popup the popup
 	 */
-	public void closePopupWithEsc(Popup popup) {
+	public void closePopupWithEsc(EnumPopup popup) {
 		WebElement popupElement = getDriver().findElement(By.id(popup.getPopupName()));
 		System.out.println("closePopupWithEsc, " + popup + ": " + popupElement);
 		Actions actions = new Actions(getDriver());
@@ -57,7 +57,7 @@ public class PopupPage extends PageObject {
 		if (commonPage.hasSpinner())
 			commonPage.waitEndOfSpinner();
 
-		if (hasPopup(Popup.COURTESY_TEST_ENVIRONMENT))
-			closePopupWithEsc(Popup.COURTESY_TEST_ENVIRONMENT);
+		if (hasPopup(EnumPopup.COURTESY_TEST_ENVIRONMENT))
+			closePopupWithEsc(EnumPopup.COURTESY_TEST_ENVIRONMENT);
 	}
 }

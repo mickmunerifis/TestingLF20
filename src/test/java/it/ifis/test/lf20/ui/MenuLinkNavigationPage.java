@@ -5,8 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import it.ifis.test.lf20.models.HtmlTag;
-import it.ifis.test.lf20.models.MenuLink;
+import it.ifis.test.lf20.models.EnumHtmlTag;
+import it.ifis.test.lf20.models.EnumMenuLink;
 import net.serenitybdd.core.pages.PageObject;
 
 /**
@@ -19,9 +19,9 @@ public class MenuLinkNavigationPage extends PageObject {
 	 *
 	 * @param link the link
 	 */
-	public void selectMenuLink(MenuLink link) {
+	public void selectMenuLink(EnumMenuLink link) {
 		WebElement dropdown = getDriver().findElement(By.id("sub-menu-"));
-		List<WebElement> options = dropdown.findElements(By.tagName(HtmlTag.LI.getName()));
+		List<WebElement> options = dropdown.findElements(By.tagName(EnumHtmlTag.LI.getName()));
 		for (WebElement option : options) {
 			if (option.getText().indexOf(link.getMenuLinkName()) != -1) {
 				option.click();

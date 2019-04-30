@@ -3,7 +3,7 @@ package it.ifis.test.lf20.models;
 /**
  * Enumeration dei popup.
  */
-public enum Popup {
+public enum EnumPopup {
 	
 	/** The Courtesy test environment. */
 	COURTESY_TEST_ENVIRONMENT("dialogContent_2");
@@ -16,7 +16,7 @@ public enum Popup {
 	 *
 	 * @param popupName the popup name
 	 */
-	private Popup(String popupName) {
+	private EnumPopup(String popupName) {
 		this.popupName = popupName;
 	}
 

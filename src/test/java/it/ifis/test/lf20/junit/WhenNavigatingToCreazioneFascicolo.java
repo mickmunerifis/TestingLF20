@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
-import it.ifis.test.lf20.models.MenuLink;
+import it.ifis.test.lf20.models.EnumMenuLink;
 import it.ifis.test.lf20.steps.LF20UserSteps;
 import it.ifis.test.lf20.ui.CommonPage;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -46,7 +46,7 @@ public class WhenNavigatingToCreazioneFascicolo {
 	public void shouldBeAbleToCreateFascicoloLegalizzatoInOda() {
 		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
 
-		user.navigatesToMenuLink(MenuLink.CREAZIONE_FASCICOLO);
+		user.navigatesToMenuLink(EnumMenuLink.CREAZIONE_FASCICOLO);
 		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.FASCICOLI_PROVVISORI));
 
 		user.getCommonPage().closeTab(CommonPage.TAB_CRUSCOTTO);

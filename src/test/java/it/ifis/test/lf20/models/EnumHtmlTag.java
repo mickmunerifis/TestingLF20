@@ -3,7 +3,7 @@ package it.ifis.test.lf20.models;
 /**
  * Enumeration dei tag HTML.
  */
-public enum HtmlTag {
+public enum EnumHtmlTag {
 
 	/** The tr. */
 	TR("tr"),
@@ -29,6 +29,9 @@ public enum HtmlTag {
 	/** The arch select. */
 	ARCH_SELECT("arch-select"),
 
+	/** The arch button. */
+	ARCH_BUTTON("arch-button"),
+
 	/** The md tab item. */
 	MD_TAB_ITEM("md-tab-item"),
 
@@ -45,20 +48,17 @@ public enum HtmlTag {
 	VALUE("value"),
 
 	/** The icon block. */
-	ICON_BLOCK("block"),
-
-	/** The button tooltip next. */
-	BUTTON_TOOLTIP_NEXT("Next");
+	ICON_BLOCK("block");
 
 	/** The popup name. */
 	private String name;
 
 	/**
-	 * Instantiates a HtmlTag.
+	 * Instantiates a EnumHtmlTag.
 	 *
 	 * @param name the name
 	 */
-	private HtmlTag(String name) {
+	private EnumHtmlTag(String name) {
 		this.name = name;
 	}
 

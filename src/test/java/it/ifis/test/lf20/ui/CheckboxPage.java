@@ -8,8 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import it.ifis.test.lf20.models.Checkbox;
-import it.ifis.test.lf20.models.HtmlTag;
+import it.ifis.test.lf20.models.EnumCheckbox;
+import it.ifis.test.lf20.models.EnumHtmlTag;
 import net.serenitybdd.core.pages.PageObject;
 
 /**
@@ -27,14 +27,14 @@ public class CheckboxPage extends PageObject {
 	 * @param webElement the web element that contains the checkbox
 	 * @param checkbox   the checkbox to click
 	 */
-	public void clickCheckbox(WebElement webElement, Checkbox checkbox) {
+	public void clickCheckbox(WebElement webElement, EnumCheckbox checkbox) {
 		System.out.println("Find checkbox: " + checkbox);
 
 		boolean checkboxClicked = false;
 
 		// se l'elemento web non è stato passato cerca la checkbox dal driver.
 		if (webElement != null) {
-			WebElement _checkbox = webElement.findElement(By.tagName(HtmlTag.MD_CHECKBOX.getName()));
+			WebElement _checkbox = webElement.findElement(By.tagName(EnumHtmlTag.MD_CHECKBOX.getName()));
 
 			// clicca la checkbox
 			if (_checkbox != null) {
@@ -46,7 +46,7 @@ public class CheckboxPage extends PageObject {
 			}
 		} else {
 			checkboxClicked = clickCheckbox(checkbox,
-					getDriver().findElements(By.tagName(HtmlTag.MD_CHECKBOX.getName())));
+					getDriver().findElements(By.tagName(EnumHtmlTag.MD_CHECKBOX.getName())));
 		}
 
 		// se la checkbox non è stata cliccata --> assert FALSE
@@ -62,13 +62,13 @@ public class CheckboxPage extends PageObject {
 	 * @param checkboxes la lista di checkbox in cui cercare
 	 * @return true, se la checkbox è stata cliccata
 	 */
-	private boolean clickCheckbox(Checkbox checkbox, List<WebElement> checkboxes) {
+	private boolean clickCheckbox(EnumCheckbox checkbox, List<WebElement> checkboxes) {
 		// trova la checkbox richiesta
 		for (WebElement _checkbox : checkboxes) {
-			System.out.println("Checkbox: " + _checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()));
+			System.out.println("Checkbox: " + _checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()));
 
-			if (_checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
-					&& checkbox.getName().equals(_checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
+			if (_checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()) != null
+					&& checkbox.getName().equals(_checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))) {
 				// clicca la checkbox
 				System.out.println("Checkbox found");
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import it.ifis.test.lf20.models.HtmlTag;
+import it.ifis.test.lf20.models.EnumHtmlTag;
 import net.serenitybdd.core.pages.PageObject;
 
 /**
@@ -96,11 +96,11 @@ public class CommonPage extends PageObject {
 	 * @param tabName the tab name
 	 */
 	public void closeTab(String tabName) {
-		List<WebElement> tabs = getDriver().findElements(By.tagName(HtmlTag.MD_TAB_ITEM.getName()));
+		List<WebElement> tabs = getDriver().findElements(By.tagName(EnumHtmlTag.MD_TAB_ITEM.getName()));
 		for (WebElement tab : tabs) {
-			WebElement _tabName = tab.findElement(By.tagName(HtmlTag.SPAN.getName()));
+			WebElement _tabName = tab.findElement(By.tagName(EnumHtmlTag.SPAN.getName()));
 			if (tabName.equals(_tabName.getText())) {
-				WebElement x = tab.findElement(By.tagName(HtmlTag.MD_ICON.getName()));
+				WebElement x = tab.findElement(By.tagName(EnumHtmlTag.MD_ICON.getName()));
 				Actions action = new Actions(getDriver());
 				action.moveToElement(x).click(x).build().perform();
 			}

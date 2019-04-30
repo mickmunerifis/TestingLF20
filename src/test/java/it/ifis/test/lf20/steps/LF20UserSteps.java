@@ -5,9 +5,9 @@ package it.ifis.test.lf20.steps;
 
 import static org.junit.Assert.assertTrue;
 
-import it.ifis.test.lf20.models.Checkbox;
-import it.ifis.test.lf20.models.MenuLink;
-import it.ifis.test.lf20.models.Select;
+import it.ifis.test.lf20.models.EnumCheckbox;
+import it.ifis.test.lf20.models.EnumMenuLink;
+import it.ifis.test.lf20.models.EnumSelect;
 import it.ifis.test.lf20.ui.CheckboxPage;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
@@ -106,7 +106,7 @@ public class LF20UserSteps {
 	 * @param link the link
 	 */
 	@Step
-	public void navigatesToMenuLink(MenuLink link) {
+	public void navigatesToMenuLink(EnumMenuLink link) {
 		System.out.println("LF20UserSteps.navigatesToMenuLink: " + link);
 
 		menuLinkNavigationPage.selectMenuLink(link);
@@ -129,9 +129,9 @@ public class LF20UserSteps {
 	 */
 	@Step
 	public void creaFascicoloLegalizzatoInOda() {
-		checkboxPage.clickCheckbox(null, Checkbox.CHECKBOX_FASCICOLO_LEGALIZZATO);
-		selectPage.selectOption(Select.SELECT_FASE, Select.OPTION_FASE_ORDINANZA_ASSEGNAZIONE);
-		selectPage.selectOption(Select.SELECT_ATTIVITA, Select.OPTION_ATTIVITA_GESTIONE);
+		checkboxPage.clickCheckbox(null, EnumCheckbox.CHECKBOX_FASCICOLO_LEGALIZZATO);
+		selectPage.selectOption(EnumSelect.SELECT_FASE, EnumSelect.OPTION_FASE_ORDINANZA_ASSEGNAZIONE);
+		selectPage.selectOption(EnumSelect.SELECT_ATTIVITA, EnumSelect.OPTION_ATTIVITA_GESTIONE);
 		tablePage.selectAllPraticheInPraticheCollegate();
 	}
 

@@ -1,22 +1,25 @@
 package it.ifis.test.lf20.models;
 
 /**
- * Enumeration delle checkbox.
+ * Enumeration dei bottoni.
  */
-public enum Checkbox {
+public enum EnumButton {
 
-	/** The checkbox fascicolo legalizzato. */
-	CHECKBOX_FASCICOLO_LEGALIZZATO("Fascicolo legalizzato");
+	/** The button tooltip next. */
+	TOOLTIP_NEXT("Next"),
+
+	/** The button label conferma. */
+	LABEL_CONFERMA("Conferma");
 
 	/** The popup name. */
 	private String name;
 
 	/**
-	 * Instantiates a new Checkbox.
+	 * Instantiates a new EnumButton.
 	 *
 	 * @param name the name
 	 */
-	private Checkbox(String name) {
+	private EnumButton(String name) {
 		this.name = name;
 	}
 

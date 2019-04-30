@@ -3,7 +3,7 @@ package it.ifis.test.lf20.models;
 /**
  * Enumeration delle select.
  */
-public enum Select {
+public enum EnumSelect {
 
 	/** The select fase. */
 	SELECT_FASE("Fase"),
@@ -21,11 +21,11 @@ public enum Select {
 	private String name;
 
 	/**
-	 * Instantiates a new Select.
+	 * Instantiates a new EnumSelect.
 	 *
 	 * @param name the name
 	 */
-	private Select(String name) {
+	private EnumSelect(String name) {
 		this.name = name;
 	}
 

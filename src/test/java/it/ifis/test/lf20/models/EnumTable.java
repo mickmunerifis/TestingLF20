@@ -3,7 +3,7 @@ package it.ifis.test.lf20.models;
 /**
  * Enumeration delle tabelle.
  */
-public enum Table {
+public enum EnumTable {
 
 	/** The elenco fascicoli affidati. */
 	TABLE_ELENCO_FASCICOLI_AFFIDATI("Elenco fascicoli affidati"),
@@ -18,11 +18,11 @@ public enum Table {
 	private String name;
 
 	/**
-	 * Instantiates a new Table.
+	 * Instantiates a new EnumTable.
 	 *
 	 * @param name the name
 	 */
-	private Table(String name) {
+	private EnumTable(String name) {
 		this.name = name;
 	}
 

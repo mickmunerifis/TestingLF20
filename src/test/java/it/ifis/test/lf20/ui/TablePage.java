@@ -8,8 +8,9 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import it.ifis.test.lf20.models.HtmlTag;
-import it.ifis.test.lf20.models.Table;
+import it.ifis.test.lf20.models.EnumButton;
+import it.ifis.test.lf20.models.EnumHtmlTag;
+import it.ifis.test.lf20.models.EnumTable;
 import it.ifis.test.lf20.models.TableFascicoliAffidati;
 import net.serenitybdd.core.pages.PageObject;
 
@@ -21,13 +22,16 @@ public class TablePage extends PageObject {
 	/** The checkbox page. */
 	private CheckboxPage checkboxPage;
 
+	/** The button page. */
+	private ButtonPage buttonPage;
+
 	/**
 	 * Click a button of the table.
 	 *
 	 * @param table  the table that contains the button
 	 * @param button the button to click
 	 */
-	public void clickButton(Table table, Table button) {
+	public void clickButton(EnumTable table, EnumTable button) {
 		System.out.println("Find table: " + table);
 		System.out.println("Click button: " + button);
 
@@ -37,7 +41,7 @@ public class TablePage extends PageObject {
 
 		boolean buttonClicked = false;
 		// recupera le righe
-		List<WebElement> rows = _table.findElements(By.tagName(HtmlTag.TR.getName()));
+		List<WebElement> rows = _table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
 		while (!rows.isEmpty()) {
 			int rowCount = 0;
 
@@ -45,14 +49,14 @@ public class TablePage extends PageObject {
 				System.out.println("Row: " + rowCount);
 
 				// recupera i bottoni di una riga
-				List<WebElement> buttons = row.findElements(By.tagName(HtmlTag.BUTTON.getName()));
+				List<WebElement> buttons = row.findElements(By.tagName(EnumHtmlTag.BUTTON.getName()));
 				for (WebElement _button : buttons) {
-					System.out.println("Button: " + _button.getAttribute(HtmlTag.ARIA_LABEL.getName())
+					System.out.println("Button: " + _button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName())
 							+ " --- enabled: " + _button.isEnabled());
 
 					// trova il bottone cliccabile con tooltip richiesto
-					if (_button.isEnabled() && _button.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
-							&& button.getName().equals(_button.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
+					if (_button.isEnabled() && _button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()) != null
+							&& button.getName().equals(_button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))) {
 						System.out.println("Button found");
 						_button.click();
 						buttonClicked = true;
@@ -90,17 +94,17 @@ public class TablePage extends PageObject {
 	 * @param tipoSoggetto the tipo soggetto
 	 */
 	public void clickButtonModificaFascicoloInFascicoliAffidati(String tipoSoggetto) {
-		System.out.println("Find table: " + Table.TABLE_ELENCO_FASCICOLI_AFFIDATI);
-		System.out.println("Click button: " + Table.BUTTON_MODIFICA_FASCICOLO);
+		System.out.println("Find table: " + EnumTable.TABLE_ELENCO_FASCICOLI_AFFIDATI);
+		System.out.println("Click button: " + EnumTable.BUTTON_MODIFICA_FASCICOLO);
 
 		// recupera la tabella "elenco fascicoli affidati"
 		WebElement table = getDriver().findElement(
-				By.cssSelector("*[table-title='" + Table.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName() + "']"));
+				By.cssSelector("*[table-title='" + EnumTable.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName() + "']"));
 		System.out.println("Table found");
 
 		boolean buttonClicked = false;
 		// recupera le righe
-		List<WebElement> rows = table.findElements(By.tagName(HtmlTag.TR.getName()));
+		List<WebElement> rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
 		while (!rows.isEmpty()) {
 			int rowCount = 0;
 
@@ -123,7 +127,7 @@ public class TablePage extends PageObject {
 						.findElement(By.xpath("child::td[" + TableFascicoliAffidati.INDEX_ICON_BLOCCO_SO + "]"));
 				boolean isRapportoAUI = false;
 				System.out.println("Icona Blocco SO: " + iconBloccoSo.getText());
-				if (HtmlTag.ICON_BLOCK.getName().equals(iconBloccoSo.getText())) {
+				if (EnumHtmlTag.ICON_BLOCK.getName().equals(iconBloccoSo.getText())) {
 					isRapportoAUI = true;
 				}
 
@@ -134,8 +138,9 @@ public class TablePage extends PageObject {
 					// recupera il bottone "Modifica fascicolo"
 					WebElement buttonModificaFascicolo = row.findElement(By.xpath(
 							"child::td[" + TableFascicoliAffidati.INDEX_BUTTON_PLAY + "]/span/arch-button/button"));
-					System.out.println("Button: " + buttonModificaFascicolo.getAttribute(HtmlTag.ARIA_LABEL.getName())
-							+ " --- enabled: " + buttonModificaFascicolo.isEnabled());
+					System.out
+							.println("Button: " + buttonModificaFascicolo.getAttribute(EnumHtmlTag.ARIA_LABEL.getName())
+									+ " --- enabled: " + buttonModificaFascicolo.isEnabled());
 
 					// se il bottone è cliccabile --> clicca
 					if (buttonModificaFascicolo.isEnabled()) {
@@ -174,15 +179,15 @@ public class TablePage extends PageObject {
 	 * Select all pratiche in pratiche collegate.
 	 */
 	public void selectAllPraticheInPraticheCollegate() {
-		System.out.println("Find table: " + Table.TABLE_PRATICHE_COLLEGATE);
+		System.out.println("Find table: " + EnumTable.TABLE_PRATICHE_COLLEGATE);
 
 		// recupera la tabella "pratiche collegate"
 		WebElement table = getDriver()
-				.findElement(By.cssSelector("*[table-title='" + Table.TABLE_PRATICHE_COLLEGATE.getName() + "']"));
+				.findElement(By.cssSelector("*[table-title='" + EnumTable.TABLE_PRATICHE_COLLEGATE.getName() + "']"));
 		System.out.println("Table found");
 
 		// recupera le righe
-		List<WebElement> rows = table.findElements(By.tagName(HtmlTag.TR.getName()));
+		List<WebElement> rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
 		while (!rows.isEmpty()) {
 			int rowCount = 0;
 
@@ -195,8 +200,11 @@ public class TablePage extends PageObject {
 					continue;
 				}
 
-				// recupera e clicca la checkbox
+				// clicca la checkbox
 				checkboxPage.clickCheckbox(row, null);
+
+				// clicca il bottone "CONFERMA"
+				buttonPage.clickButton(EnumButton.LABEL_CONFERMA);
 
 				rowCount++;
 			}
@@ -214,12 +222,12 @@ public class TablePage extends PageObject {
 	 */
 	private List<WebElement> getNextRows(WebElement table) {
 		List<WebElement> rows = new ArrayList<WebElement>();
-		List<WebElement> buttons = table.findElements(By.tagName(HtmlTag.BUTTON.getName()));
+		List<WebElement> buttons = table.findElements(By.tagName(EnumHtmlTag.BUTTON.getName()));
 		for (WebElement button : buttons) {
-			if (HtmlTag.BUTTON_TOOLTIP_NEXT.getName().equals(button.getAttribute(HtmlTag.ARIA_LABEL.getName()))
+			if (EnumButton.TOOLTIP_NEXT.getName().equals(button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))
 					&& button.isEnabled()) {
 				button.click();
-				rows = table.findElements(By.tagName(HtmlTag.TR.getName()));
+				rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
 				break;
 			}
 		}
