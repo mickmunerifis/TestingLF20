@@ -12,7 +12,7 @@ public enum Checkbox {
 	private String name;
 
 	/**
-	 * Instantiates a new chackbox.
+	 * Instantiates a new Checkbox.
 	 *
 	 * @param name the name
 	 */
