@@ -24,20 +24,20 @@ public class TablePage extends PageObject {
 	/**
 	 * Click a button of the table.
 	 *
-	 * @param tableName  the table name
-	 * @param buttonName the button name to click
+	 * @param table  the table that contains the button
+	 * @param button the button to click
 	 */
-	public void clickButton(Table tableName, Table buttonName) {
-		System.out.println("Find table: " + tableName);
-		System.out.println("Click button: " + buttonName);
+	public void clickButton(Table table, Table button) {
+		System.out.println("Find table: " + table);
+		System.out.println("Click button: " + button);
 
 		// recupera la tabella richiesta
-		WebElement table = getDriver().findElement(By.cssSelector("*[table-title='" + tableName.getName() + "']"));
+		WebElement _table = getDriver().findElement(By.cssSelector("*[table-title='" + table.getName() + "']"));
 		System.out.println("Table found");
 
 		boolean buttonClicked = false;
 		// recupera le righe
-		List<WebElement> rows = table.findElements(By.tagName(HtmlTag.TR.getName()));
+		List<WebElement> rows = _table.findElements(By.tagName(HtmlTag.TR.getName()));
 		while (!rows.isEmpty()) {
 			int rowCount = 0;
 
@@ -46,15 +46,15 @@ public class TablePage extends PageObject {
 
 				// recupera i bottoni di una riga
 				List<WebElement> buttons = row.findElements(By.tagName(HtmlTag.BUTTON.getName()));
-				for (WebElement button : buttons) {
-					System.out.println("Button: " + button.getAttribute(HtmlTag.ARIA_LABEL.getName()) + " --- enabled: "
-							+ button.isEnabled());
+				for (WebElement _button : buttons) {
+					System.out.println("Button: " + _button.getAttribute(HtmlTag.ARIA_LABEL.getName())
+							+ " --- enabled: " + _button.isEnabled());
 
 					// trova il bottone cliccabile con tooltip richiesto
-					if (button.isEnabled() && button.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
-							&& buttonName.getName().equals(button.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
+					if (_button.isEnabled() && _button.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
+							&& button.getName().equals(_button.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
 						System.out.println("Button found");
-						button.click();
+						_button.click();
 						buttonClicked = true;
 						break;
 					}
@@ -75,7 +75,7 @@ public class TablePage extends PageObject {
 
 			// se il bottone non è stato trovato, avanza di una pagina e recupera le
 			// prossime righe
-			rows = getNextRows(table);
+			rows = getNextRows(_table);
 		}
 
 		// se il bottone non è stato cliccato --> assert FALSE
@@ -197,10 +197,6 @@ public class TablePage extends PageObject {
 
 				// recupera e clicca la checkbox
 				checkboxPage.clickCheckbox(row, null);
-//				WebElement checkbox = row.findElement(By.tagName(HtmlTag.MD_CHECKBOX.getName()));
-//
-//				Actions action = new Actions(getDriver());
-//				action.moveToElement(checkbox).click(checkbox).build().perform();
 
 				rowCount++;
 			}

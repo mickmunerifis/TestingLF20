@@ -19,33 +19,33 @@ public class CheckboxPage extends PageObject {
 
 	/**
 	 * Click a checkbox. <br>
-	 * Se il webELement viene passato allora il checkboxName verrà ignorato e si
-	 * cercherà l'unica checkbox contenuta nel webELement <br>
+	 * Se il webELement viene passato allora il parametro checkbox verrà ignorato e
+	 * si cercherà l'unica checkbox contenuta nel webELement <br>
 	 * Se il webELement non viene passato allora si cercheranno tra tutte le
-	 * checkbox quella con la label uguale a checkboxName.
+	 * checkbox quella con la label uguale al parametro checkbox.
 	 *
-	 * @param webElement   the web element that contains the checkbox
-	 * @param checkboxName the checkboxn name to click
+	 * @param webElement the web element that contains the checkbox
+	 * @param checkbox   the checkbox to click
 	 */
-	public void clickCheckbox(WebElement webElement, Checkbox checkboxName) {
-		System.out.println("Find checkbox: " + checkboxName);
+	public void clickCheckbox(WebElement webElement, Checkbox checkbox) {
+		System.out.println("Find checkbox: " + checkbox);
 
 		boolean checkboxClicked = false;
 
 		// se l'elemento web non è stato passato cerca la checkbox dal driver.
 		if (webElement != null) {
-			WebElement checkbox = webElement.findElement(By.tagName(HtmlTag.MD_CHECKBOX.getName()));
+			WebElement _checkbox = webElement.findElement(By.tagName(HtmlTag.MD_CHECKBOX.getName()));
 
 			// clicca la checkbox
-			if (checkbox != null) {
+			if (_checkbox != null) {
 				System.out.println("Checkbox found");
 
 				Actions action = new Actions(getDriver());
-				action.moveToElement(checkbox).click(checkbox).build().perform();
+				action.moveToElement(_checkbox).click(_checkbox).build().perform();
 				checkboxClicked = true;
 			}
 		} else {
-			checkboxClicked = clickCheckbox(checkboxName,
+			checkboxClicked = clickCheckbox(checkbox,
 					getDriver().findElements(By.tagName(HtmlTag.MD_CHECKBOX.getName())));
 		}
 
@@ -58,22 +58,22 @@ public class CheckboxPage extends PageObject {
 	/**
 	 * Click checkbox.
 	 *
-	 * @param checkboxName il nome della checkbox da cliccare
-	 * @param checkboxes   la lista di checkbox in cui cercare
+	 * @param checkbox   la checkbox da cliccare
+	 * @param checkboxes la lista di checkbox in cui cercare
 	 * @return true, se la checkbox è stata cliccata
 	 */
-	private boolean clickCheckbox(Checkbox checkboxName, List<WebElement> checkboxes) {
+	private boolean clickCheckbox(Checkbox checkbox, List<WebElement> checkboxes) {
 		// trova la checkbox richiesta
-		for (WebElement checkbox : checkboxes) {
-			System.out.println("Checkbox: " + checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()));
+		for (WebElement _checkbox : checkboxes) {
+			System.out.println("Checkbox: " + _checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()));
 
-			if (checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
-					&& checkboxName.getName().equals(checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
+			if (_checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()) != null
+					&& checkbox.getName().equals(_checkbox.getAttribute(HtmlTag.ARIA_LABEL.getName()))) {
 				// clicca la checkbox
 				System.out.println("Checkbox found");
 
 				Actions action = new Actions(getDriver());
-				action.moveToElement(checkbox).click(checkbox).build().perform();
+				action.moveToElement(_checkbox).click(_checkbox).build().perform();
 				return true;
 			}
 		}

@@ -7,12 +7,14 @@ import static org.junit.Assert.assertTrue;
 
 import it.ifis.test.lf20.models.Checkbox;
 import it.ifis.test.lf20.models.MenuLink;
+import it.ifis.test.lf20.models.Select;
 import it.ifis.test.lf20.ui.CheckboxPage;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
 import it.ifis.test.lf20.ui.LoginPage;
 import it.ifis.test.lf20.ui.MenuLinkNavigationPage;
 import it.ifis.test.lf20.ui.PopupPage;
+import it.ifis.test.lf20.ui.SelectPage;
 import it.ifis.test.lf20.ui.TablePage;
 import net.thucydides.core.annotations.Step;
 
@@ -41,6 +43,9 @@ public class LF20UserSteps {
 
 	/** The checkbox page. */
 	private CheckboxPage checkboxPage;
+
+	/** The select page. */
+	private SelectPage selectPage;
 
 	/**
 	 * Gets the common page.
@@ -125,6 +130,8 @@ public class LF20UserSteps {
 	@Step
 	public void creaFascicoloLegalizzatoInOda() {
 		checkboxPage.clickCheckbox(null, Checkbox.CHECKBOX_FASCICOLO_LEGALIZZATO);
+		selectPage.selectOption(Select.SELECT_FASE, Select.OPTION_FASE_ORDINANZA_ASSEGNAZIONE);
+		selectPage.selectOption(Select.SELECT_ATTIVITA, Select.OPTION_ATTIVITA_GESTIONE);
 		tablePage.selectAllPraticheInPraticheCollegate();
 	}
 

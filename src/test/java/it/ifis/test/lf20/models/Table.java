@@ -18,7 +18,7 @@ public enum Table {
 	private String name;
 
 	/**
-	 * Instantiates a new table.
+	 * Instantiates a new Table.
 	 *
 	 * @param name the name
 	 */
