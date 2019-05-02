@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package it.ifis.test.lf20.models;
 
 /**
@@ -32,11 +35,17 @@ public enum EnumHtmlTag {
 	/** The arch button. */
 	ARCH_BUTTON("arch-button"),
 
+	/** The arch fieldset. */
+	ARCH_FIELDSET("arch-fieldset"),
+
 	/** The md tab item. */
 	MD_TAB_ITEM("md-tab-item"),
 
 	/** The span. */
 	SPAN("span"),
+
+	/** The legend. */
+	LEGEND("legend"),
 
 	/** The aria label. */
 	ARIA_LABEL("aria-label"),
@@ -46,6 +55,12 @@ public enum EnumHtmlTag {
 
 	/** The value. */
 	VALUE("value"),
+
+	/** The arch input text. */
+	ARCH_INPUT_TEXT("arch-input-text"),
+
+	/** The input. */
+	INPUT("input"),
 
 	/** The icon block. */
 	ICON_BLOCK("block");

@@ -19,10 +19,8 @@ public class CheckboxPage extends PageObject {
 
 	/**
 	 * Click a checkbox. <br>
-	 * Se il webELement viene passato allora il parametro checkbox verrà ignorato e
-	 * si cercherà l'unica checkbox contenuta nel webELement <br>
-	 * Se il webELement non viene passato allora si cercheranno tra tutte le
-	 * checkbox quella con la label uguale al parametro checkbox.
+	 * Se il webELement viene passato allora il parametro checkbox verrà ignorato e si cercherà l'unica checkbox contenuta nel webELement <br>
+	 * Se il webELement non viene passato allora si cercheranno tra tutte le checkbox quella con la label uguale al parametro checkbox.
 	 *
 	 * @param webElement the web element that contains the checkbox
 	 * @param checkbox   the checkbox to click
@@ -67,8 +65,7 @@ public class CheckboxPage extends PageObject {
 		for (WebElement _checkbox : checkboxes) {
 			System.out.println("Checkbox: " + _checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()));
 
-			if (_checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()) != null
-					&& checkbox.getName().equals(_checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))) {
+			if (checkbox.getName().equals(_checkbox.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))) {
 				// clicca la checkbox
 				System.out.println("Checkbox found");
 

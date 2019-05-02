@@ -31,8 +31,7 @@ public class ButtonPage extends PageObject {
 		for (WebElement archButton : archButtons) {
 			System.out.println("Button: " + archButton.getAttribute(EnumHtmlTag.LABEL.getName()) + " --- enabled: "
 					+ archButton.isEnabled());
-			if (archButton.getAttribute(EnumHtmlTag.LABEL.getName()) != null
-					&& label.getName().equals(archButton.getAttribute(EnumHtmlTag.LABEL.getName()))) {
+			if (label.getName().equals(archButton.getAttribute(EnumHtmlTag.LABEL.getName()))) {
 				// clicca il bottone
 				System.out.println("Button found");
 				WebElement button = archButton.findElement(By.tagName(EnumHtmlTag.BUTTON.getName()));

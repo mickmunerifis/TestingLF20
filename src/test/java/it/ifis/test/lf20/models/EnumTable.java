@@ -8,6 +8,9 @@ public enum EnumTable {
 	/** The elenco fascicoli affidati. */
 	TABLE_ELENCO_FASCICOLI_AFFIDATI("Elenco fascicoli affidati"),
 
+	/** The table elenco fascicoli creati. */
+	TABLE_ELENCO_FASCICOLI_CREATI("Elenco fascicoli creati"),
+
 	/** The table pratiche collegate. */
 	TABLE_PRATICHE_COLLEGATE("Pratiche collegate"),
 

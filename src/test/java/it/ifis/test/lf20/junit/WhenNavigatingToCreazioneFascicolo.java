@@ -44,17 +44,33 @@ public class WhenNavigatingToCreazioneFascicolo {
 	 */
 	@Test
 	public void shouldBeAbleToCreateFascicoloLegalizzatoInOda() {
+		// aspetta la chiusura dello spinner.
 		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
 
+		// clicca la voce di menu "Creazione fascicolo" e verifica di essere atterrato nella pagina corretta.
 		user.navigatesToMenuLink(EnumMenuLink.CREAZIONE_FASCICOLO);
 		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.FASCICOLI_PROVVISORI));
 
+		// chiudi il tab "Cruscotto".
 		user.getCommonPage().closeTab(CommonPage.TAB_CRUSCOTTO);
 
+		// clicca "Modifica fascicolo" sulla prima riga della tabella "Elenco fascicoli affidati" che non ha il "blocco SO" , che sia di un "debitore" e che abbia il campo "legale esterno popolato".
+		// aspetta la chiusura dello spinner.
+		// verifica di essere atterrato sulla pagina "Crea fascicolo".
 		user.clickModificaFascicoloSuDebitore();
+		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
 		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.CREA_FASCICOLO));
 
+		// crea il fascicolo legalizzato in OdA.
+		// aspetta la chiusura dello spinner.
+		// verifica di essere atterrato sulla pagina "Fascicoli provvisori".
 		user.creaFascicoloLegalizzatoInOda();
+		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
+		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.FASCICOLI_PROVVISORI));
+
+		// controlla che nella tabella "Elenco fascicoli creati" ci sia il fascicolo appena creato.
+		assertTrue(
+				user.verificaFascicoloCreato((String) user.getHeaders().get(LF20UserSteps.HEADER_CREA_FASCICOLO_NDG)));
 
 		try {
 			Thread.sleep(5000);

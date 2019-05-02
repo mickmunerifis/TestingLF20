@@ -5,9 +5,18 @@ package it.ifis.test.lf20.steps;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.openqa.selenium.WebElement;
+
+import it.ifis.test.lf20.models.EnumButton;
 import it.ifis.test.lf20.models.EnumCheckbox;
+import it.ifis.test.lf20.models.EnumFieldset;
+import it.ifis.test.lf20.models.EnumInputText;
 import it.ifis.test.lf20.models.EnumMenuLink;
 import it.ifis.test.lf20.models.EnumSelect;
+import it.ifis.test.lf20.ui.ButtonPage;
 import it.ifis.test.lf20.ui.CheckboxPage;
 import it.ifis.test.lf20.ui.CommonPage;
 import it.ifis.test.lf20.ui.HomePage;
@@ -44,8 +53,26 @@ public class LF20UserSteps {
 	/** The checkbox page. */
 	private CheckboxPage checkboxPage;
 
+	/** The button page. */
+	private ButtonPage buttonPage;
+
 	/** The select page. */
 	private SelectPage selectPage;
+
+	/** The Constant CREA_FASCICOLO_NDG. */
+	public static final String HEADER_CREA_FASCICOLO_NDG = "CREA_FASCICOLO_NDG";
+
+	/** The headers. */
+	private Map<String, Object> headers = new HashMap<String, Object>();
+
+	/**
+	 * Gets the headers.
+	 *
+	 * @return the headers
+	 */
+	public Map<String, Object> getHeaders() {
+		return headers;
+	}
 
 	/**
 	 * Gets the common page.
@@ -129,10 +156,45 @@ public class LF20UserSteps {
 	 */
 	@Step
 	public void creaFascicoloLegalizzatoInOda() {
+		// salva l'NDG del soggetto del fascicolo (servirà per verificare che il fascicolo sia stato creato correttamente).
+		getNdgForCreaFascicolo();
+
+		// Clicca "fascicolo legalizzato".
 		checkboxPage.clickCheckbox(null, EnumCheckbox.CHECKBOX_FASCICOLO_LEGALIZZATO);
+
+		// Seleziona fase legalizzata "Ordinanza di Assegnazione".
 		selectPage.selectOption(EnumSelect.SELECT_FASE, EnumSelect.OPTION_FASE_ORDINANZA_ASSEGNAZIONE);
+
+		// Seleziona attività legalizzata "Gestione".
 		selectPage.selectOption(EnumSelect.SELECT_ATTIVITA, EnumSelect.OPTION_ATTIVITA_GESTIONE);
+
+		// Conferma tutte le pratiche.
 		tablePage.selectAllPraticheInPraticheCollegate();
+
+		// Crea il fascicolo
+		buttonPage.clickButton(EnumButton.LABEL_CREA_FASCICOLO);
+	}
+
+	/**
+	 * Verifica che nella tabella "Elenco fascicoli creati" ci sia un fascicolo creato oggi per l'ndg richiesto.
+	 *
+	 * @param ndg the ndg
+	 * @return true, if successful
+	 */
+	@Step
+	public boolean verificaFascicoloCreato(String ndg) {
+		return tablePage.verificaNdgInElencoFascicoliCreati(ndg);
+	}
+
+	/**
+	 * Gets the ndg for crea fascicolo.
+	 *
+	 * @return the ndg for crea fascicolo
+	 */
+	private void getNdgForCreaFascicolo() {
+		WebElement fieldset = commonPage.clickFieldsetButton(EnumFieldset.DATI_GENERALI, EnumButton.TOOLTIP_TOGGLE);
+		String ndg = commonPage.getInputTextValue(fieldset, EnumInputText.NDG);
+		headers.put(HEADER_CREA_FASCICOLO_NDG, ndg);
 	}
 
 }

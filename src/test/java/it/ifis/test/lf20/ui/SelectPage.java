@@ -34,8 +34,7 @@ public class SelectPage extends PageObject {
 		for (WebElement _select : selects) {
 			System.out.println("Select: " + _select.getAttribute(EnumHtmlTag.LABEL.getName()));
 
-			if (_select.getAttribute(EnumHtmlTag.LABEL.getName()) != null
-					&& select.getName().equals(_select.getAttribute(EnumHtmlTag.LABEL.getName()))) {
+			if (select.getName().equals(_select.getAttribute(EnumHtmlTag.LABEL.getName()))) {
 				// clicca la select
 				System.out.println("Select found");
 				_select.findElement(By.tagName(EnumHtmlTag.MD_SELECT.getName())).click();
@@ -47,8 +46,7 @@ public class SelectPage extends PageObject {
 				for (WebElement _option : options) {
 					System.out.println("Option: " + _option.getAttribute(EnumHtmlTag.VALUE.getName()));
 
-					if (_option.getAttribute(EnumHtmlTag.VALUE.getName()) != null
-							&& option.getName().equals(_option.getAttribute(EnumHtmlTag.VALUE.getName()))) {
+					if (option.getName().equals(_option.getAttribute(EnumHtmlTag.VALUE.getName()))) {
 						// clicca l'option
 						System.out.println("Option found");
 						Actions action = new Actions(getDriver());

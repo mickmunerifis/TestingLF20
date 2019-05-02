@@ -2,7 +2,10 @@ package it.ifis.test.lf20.ui;
 
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,6 +15,7 @@ import it.ifis.test.lf20.models.EnumButton;
 import it.ifis.test.lf20.models.EnumHtmlTag;
 import it.ifis.test.lf20.models.EnumTable;
 import it.ifis.test.lf20.models.TableFascicoliAffidati;
+import it.ifis.test.lf20.models.TableFascicoliCreati;
 import net.serenitybdd.core.pages.PageObject;
 
 /**
@@ -55,7 +59,7 @@ public class TablePage extends PageObject {
 							+ " --- enabled: " + _button.isEnabled());
 
 					// trova il bottone cliccabile con tooltip richiesto
-					if (_button.isEnabled() && _button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()) != null
+					if (_button.isEnabled()
 							&& button.getName().equals(_button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()))) {
 						System.out.println("Button found");
 						_button.click();
@@ -77,8 +81,7 @@ public class TablePage extends PageObject {
 				break;
 			}
 
-			// se il bottone non è stato trovato, avanza di una pagina e recupera le
-			// prossime righe
+			// se il bottone non è stato trovato, avanza di una pagina e recupera le prossime righe
 			rows = getNextRows(_table);
 		}
 
@@ -122,6 +125,11 @@ public class TablePage extends PageObject {
 						.findElement(By.xpath("child::td[" + TableFascicoliAffidati.INDEX_TIPO_SOGGETTO + "]"));
 				System.out.println("Tipo soggetto: " + _tipoSoggetto.getText());
 
+				// recupera il contenuto della cella "legale esterno"
+				WebElement _legaleEsterno = row
+						.findElement(By.xpath("child::td[" + TableFascicoliAffidati.INDEX_LEGALE_ESTERNO + "]"));
+				System.out.println("Legale esterno: " + _legaleEsterno.getText());
+
 				// recupera l'icona "blocco SO"
 				WebElement iconBloccoSo = row
 						.findElement(By.xpath("child::td[" + TableFascicoliAffidati.INDEX_ICON_BLOCCO_SO + "]"));
@@ -131,9 +139,9 @@ public class TablePage extends PageObject {
 					isRapportoAUI = true;
 				}
 
-				// cerca il bottone solo se non ci sono rapporti AUI ed il "tipo soggetto" è
-				// uguale a quello richiesto
-				if (!isRapportoAUI && tipoSoggetto.equals(_tipoSoggetto.getText())) {
+				// cerca il bottone solo se non ci sono rapporti AUI , il "tipo soggetto" è uguale a quello richiesto e il legale esterno è popolato.
+				if (!isRapportoAUI && tipoSoggetto.equals(_tipoSoggetto.getText())
+						&& !"".equals(_legaleEsterno.getText())) {
 
 					// recupera il bottone "Modifica fascicolo"
 					WebElement buttonModificaFascicolo = row.findElement(By.xpath(
@@ -164,8 +172,7 @@ public class TablePage extends PageObject {
 				break;
 			}
 
-			// se il bottone non è stato trovato, avanza di una pagina e recupera le
-			// prossime righe
+			// se il bottone non è stato trovato, avanza di una pagina e recupera le prossime righe
 			rows = getNextRows(table);
 		}
 
@@ -173,6 +180,59 @@ public class TablePage extends PageObject {
 		if (!buttonClicked) {
 			assertTrue(false);
 		}
+	}
+
+	/**
+	 * Verifica che nella tabella "Elenco fascicoli creati" ci sia un fascicolo creato oggi per l'ndg richiesto.
+	 *
+	 * @param ndg the ndg
+	 * @return true, if successful
+	 */
+	public boolean verificaNdgInElencoFascicoliCreati(String ndg) {
+		System.out.println("Find table: " + EnumTable.TABLE_ELENCO_FASCICOLI_CREATI);
+
+		// recupera la tabella "elenco fascicoli creati"
+		WebElement table = getDriver().findElement(
+				By.cssSelector("*[table-title='" + EnumTable.TABLE_ELENCO_FASCICOLI_CREATI.getName() + "']"));
+		System.out.println("Table found");
+
+		// recupera le righe
+		List<WebElement> rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
+		while (!rows.isEmpty()) {
+			int rowCount = 0;
+
+			for (WebElement row : rows) {
+				System.out.println("Row: " + rowCount);
+
+				// salta l'header
+				if (rowCount == 0) {
+					rowCount++;
+					continue;
+				}
+
+				// recupera il contenuto della cella "Ndg"
+				WebElement _ndg = row.findElement(By.xpath("child::td[" + TableFascicoliCreati.INDEX_NDG + "]"));
+				System.out.println("Ndg: " + _ndg.getText());
+
+				// recupera il contenuto della cella "Data creazione"
+				WebElement _dataCreazione = row
+						.findElement(By.xpath("child::td[" + TableFascicoliCreati.INDEX_DATA_CREAZIONE + "]"));
+				System.out.println("Data creazione: " + _dataCreazione.getText());
+
+				// verifica che l'ndg sia uaguale a quello richiesto e che la data sia uguale a quella odierna
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				if (ndg.equals(_ndg.getText()) && dateFormat.format(new Date()).equals(_dataCreazione.getText())) {
+					return true;
+				}
+
+				rowCount++;
+			}
+
+			// se il bottone non è stato trovato, avanza di una pagina e recupera le prossime righe
+			rows = getNextRows(table);
+		}
+
+		return false;
 	}
 
 	/**
