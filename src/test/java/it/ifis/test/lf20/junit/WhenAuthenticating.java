@@ -17,20 +17,20 @@ import net.thucydides.core.annotations.Steps;
  */
 @RunWith(SerenityRunner.class)
 public class WhenAuthenticating {
-	
+
 	/** The user. */
 	@Steps
 	private LF20UserSteps user;
-	
+
 	/** The browser. */
 	@Managed(driver = "chrome")
-    WebDriver browser;
-	
+	WebDriver browser;
+
 	/**
 	 * Testa la login con un legale interno.
 	 */
 	@Test
-    public void shouldBeAbleToLoginAsLegaLeInterno() {
-		user.goToHomePage();		
-    }
+	public void shouldBeAbleToLoginAsLegaleInterno() {
+		user.goToHomePage();
+	}
 }
