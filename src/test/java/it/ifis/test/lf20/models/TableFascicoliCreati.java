@@ -7,7 +7,7 @@ public final class TableFascicoliCreati {
 
 	public static final int INDEX_BUTTON_PLAY = 1;
 
-	public static final int INDEX_NDG = 11;
+	public static final int INDEX_NDG = 10;
 
-	public static final int INDEX_DATA_CREAZIONE = 17;
+	public static final int INDEX_DATA_CREAZIONE = 16;
 }
