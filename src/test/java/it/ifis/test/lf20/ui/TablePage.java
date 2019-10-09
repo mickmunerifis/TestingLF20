@@ -40,8 +40,7 @@ public class TablePage extends PageObject {
 		System.out.println("Click button: " + button);
 
 		// recupera la tabella richiesta
-		WebElement _table = getDriver().findElement(By.cssSelector("*[table-title='" + table.getName() + "']"));
-		System.out.println("Table found");
+		WebElement _table = getTable(table.getName());
 
 		boolean buttonClicked = false;
 		// recupera le righe
@@ -101,9 +100,7 @@ public class TablePage extends PageObject {
 		System.out.println("Click button: " + EnumTable.BUTTON_MODIFICA_FASCICOLO);
 
 		// recupera la tabella "elenco fascicoli affidati"
-		WebElement table = getDriver().findElement(
-				By.cssSelector("*[table-title='" + EnumTable.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName() + "']"));
-		System.out.println("Table found");
+		WebElement table = getTable(EnumTable.TABLE_ELENCO_FASCICOLI_AFFIDATI.getName());
 
 		boolean buttonClicked = false;
 		// recupera le righe
@@ -142,19 +139,9 @@ public class TablePage extends PageObject {
 				// cerca il bottone solo se non ci sono rapporti AUI , il "tipo soggetto" è uguale a quello richiesto e il legale esterno è popolato.
 				if (!isRapportoAUI && tipoSoggetto.equals(_tipoSoggetto.getText())
 						&& !"".equals(_legaleEsterno.getText())) {
-
-					// recupera il bottone "Modifica fascicolo"
-					WebElement buttonModificaFascicolo = row.findElement(By.xpath(
-							"child::td[" + TableFascicoliAffidati.INDEX_BUTTON_PLAY + "]/span/arch-button/button"));
-					System.out
-							.println("Button: " + buttonModificaFascicolo.getAttribute(EnumHtmlTag.ARIA_LABEL.getName())
-									+ " --- enabled: " + buttonModificaFascicolo.isEnabled());
-
-					// se il bottone è cliccabile --> clicca
-					if (buttonModificaFascicolo.isEnabled()) {
-						System.out.println("Button found");
-						buttonModificaFascicolo.click();
-						buttonClicked = true;
+					// recupera il bottone "Modifica fascicolo" e cliccalo se possibile
+					buttonClicked = clickRowButton(row, TableFascicoliAffidati.INDEX_BUTTON_PLAY);
+					if (buttonClicked) {
 						break;
 					}
 				}
@@ -183,19 +170,18 @@ public class TablePage extends PageObject {
 	}
 
 	/**
-	 * Verifica che nella tabella "Elenco fascicoli creati" ci sia un fascicolo creato oggi per l'ndg richiesto.
+	 * Verifica che nella tabella "fascicoli creati" ci sia un fascicolo creato oggi per l'ndg richiesto.<br>
+	 * Se viene trovato fanne partire la lavorazione.
 	 *
 	 * @param ndg the ndg
-	 * @return true, if successful
 	 */
-	public boolean verificaNdgInElencoFascicoliCreati(String ndg) {
+	public void clickButtonAvviaLavorazioneInFascicoliCreati(String ndg) {
 		System.out.println("Find table: " + EnumTable.TABLE_ELENCO_FASCICOLI_CREATI);
 
 		// recupera la tabella "elenco fascicoli creati"
-		WebElement table = getDriver().findElement(
-				By.cssSelector("*[table-title='" + EnumTable.TABLE_ELENCO_FASCICOLI_CREATI.getName() + "']"));
-		System.out.println("Table found");
+		WebElement table = getTable(EnumTable.TABLE_ELENCO_FASCICOLI_CREATI.getName());
 
+		boolean buttonClicked = false;
 		// recupera le righe
 		List<WebElement> rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
 		while (!rows.isEmpty()) {
@@ -222,17 +208,34 @@ public class TablePage extends PageObject {
 				// verifica che l'ndg sia uaguale a quello richiesto e che la data sia uguale a quella odierna
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				if (ndg.equals(_ndg.getText()) && dateFormat.format(new Date()).equals(_dataCreazione.getText())) {
-					return true;
+					// recupera il bottone "Avvia lavorazione" e cliccalo se possibile
+					buttonClicked = clickRowButton(row, TableFascicoliCreati.INDEX_BUTTON_PLAY);
+					if (buttonClicked) {
+						break;
+					}
+				}
+
+				// se il bottone è stato premuto esci dal FOR
+				if (buttonClicked) {
+					break;
 				}
 
 				rowCount++;
+			}
+
+			// se il bottone è stato premuto esci dal WHILE
+			if (buttonClicked) {
+				break;
 			}
 
 			// se il bottone non è stato trovato, avanza di una pagina e recupera le prossime righe
 			rows = getNextRows(table);
 		}
 
-		return false;
+		// se il bottone non è stato cliccato --> assert FALSE
+		if (!buttonClicked) {
+			assertTrue(false);
+		}
 	}
 
 	/**
@@ -242,9 +245,7 @@ public class TablePage extends PageObject {
 		System.out.println("Find table: " + EnumTable.TABLE_PRATICHE_COLLEGATE);
 
 		// recupera la tabella "pratiche collegate"
-		WebElement table = getDriver()
-				.findElement(By.cssSelector("*[table-title='" + EnumTable.TABLE_PRATICHE_COLLEGATE.getName() + "']"));
-		System.out.println("Table found");
+		WebElement table = getTable(EnumTable.TABLE_PRATICHE_COLLEGATE.getName());
 
 		// recupera le righe
 		List<WebElement> rows = table.findElements(By.tagName(EnumHtmlTag.TR.getName()));
@@ -275,6 +276,18 @@ public class TablePage extends PageObject {
 	}
 
 	/**
+	 * Gets the table with given name.
+	 *
+	 * @param tableName the table name
+	 * @return the table
+	 */
+	private WebElement getTable(String tableName) {
+		WebElement table = getDriver().findElement(By.cssSelector("*[table-title='" + tableName + "']"));
+		System.out.println("Table found");
+		return table;
+	}
+
+	/**
 	 * Gets the next rows.
 	 *
 	 * @param table the table
@@ -292,5 +305,28 @@ public class TablePage extends PageObject {
 			}
 		}
 		return rows;
+	}
+
+	/**
+	 * Click row button.
+	 *
+	 * @param row         the table row
+	 * @param buttonIndex the button index
+	 * @return true, if successful
+	 */
+	private boolean clickRowButton(WebElement row, int buttonIndex) {
+		// recupera il bottone richiesto
+		WebElement button = row.findElement(By.xpath("child::td[" + buttonIndex + "]/span/arch-button/button"));
+		System.out.println("Button: " + button.getAttribute(EnumHtmlTag.ARIA_LABEL.getName()) + " --- enabled: "
+				+ button.isEnabled());
+
+		// se il bottone è cliccabile --> clicca
+		if (button.isEnabled()) {
+			System.out.println("Button found");
+			button.click();
+			return true;
+		}
+
+		return false;
 	}
 }

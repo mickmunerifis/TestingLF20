@@ -15,6 +15,8 @@ import net.thucydides.core.webdriver.TemporalUnitConverter;
 /**
  * La pagina di login.
  */
+
+//@DefaultUrl("http://192.168.160.21:8080/app/legalfactory/ibaf_login.html")
 @DefaultUrl("http://sulboafe01/app/legalfactory/ibaf_login.html")
 public class LoginPage extends PageObject {
 

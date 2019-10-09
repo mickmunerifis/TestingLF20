@@ -176,14 +176,22 @@ public class LF20UserSteps {
 	}
 
 	/**
-	 * Verifica che nella tabella "Elenco fascicoli creati" ci sia un fascicolo creato oggi per l'ndg richiesto.
+	 * Avvia la lavorazione del fascicolo creato oggi per l'ndg richiesto nella tabella "Elenco fascicoli creati".
 	 *
 	 * @param ndg the ndg
-	 * @return true, if successful
 	 */
 	@Step
-	public boolean verificaFascicoloCreato(String ndg) {
-		return tablePage.verificaNdgInElencoFascicoliCreati(ndg);
+	public void avviaLavorazioneFascicoloCreato(String ndg) {
+		tablePage.clickButtonAvviaLavorazioneInFascicoliCreati(ndg);
+	}
+
+	/**
+	 * Click button SALVA.
+	 */
+	@Step
+	public void clickButtonSalva() {
+		// WebElement fieldset = commonPage.clickFieldsetButton(EnumFieldset.DATI_GENERALI, EnumButton.TOOLTIP_TOGGLE);
+		buttonPage.clickButton(EnumButton.LABEL_SALVA);
 	}
 
 	/**

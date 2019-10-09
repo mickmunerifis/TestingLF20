@@ -1,10 +1,13 @@
 package it.ifis.test.lf20.ui;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
+import TestingLF.test.App;
 import it.ifis.test.lf20.models.EnumPopup;
 import net.serenitybdd.core.pages.PageObject;
 
@@ -37,11 +40,10 @@ public class PopupPage extends PageObject {
 	public void closePopupWithEsc(EnumPopup popup) {
 		WebElement popupElement = getDriver().findElement(By.id(popup.getPopupName()));
 		System.out.println("closePopupWithEsc, " + popup + ": " + popupElement);
-		Actions actions = new Actions(getDriver());
-		actions.sendKeys(Keys.ESCAPE).perform();
 
-//		if (hasPopup(popup))
-//			waitForRenderedElementsToDisappear(By.id(popup.getPopupName()));
+		WebElement dialogContainer = getDriver().findElement(By.cssSelector("*[class='md-dialog-container ng-scope']"));
+		dialogContainer.click();
+		dialogContainer.sendKeys(Keys.ESCAPE);
 
 		while (hasPopup(popup)) {
 			// wait
@@ -57,7 +59,15 @@ public class PopupPage extends PageObject {
 		if (commonPage.hasSpinner())
 			commonPage.waitEndOfSpinner();
 
-		if (hasPopup(EnumPopup.COURTESY_TEST_ENVIRONMENT))
-			closePopupWithEsc(EnumPopup.COURTESY_TEST_ENVIRONMENT);
+		Properties prop = new Properties();
+		try {
+			prop.load(App.class.getClassLoader().getResourceAsStream("serenity.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		EnumPopup popup = EnumPopup.COURTESY_TEST_ENVIRONMENT;
+		if (hasPopup(popup))
+			closePopupWithEsc(popup);
 	}
 }

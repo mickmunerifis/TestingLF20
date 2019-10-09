@@ -54,7 +54,7 @@ public class WhenNavigatingToCreazioneFascicolo {
 		// chiudi il tab "Cruscotto".
 		user.getCommonPage().closeTab(CommonPage.TAB_CRUSCOTTO);
 
-		// clicca "Modifica fascicolo" sulla prima riga della tabella "Elenco fascicoli affidati" che non ha il "blocco SO" , che sia di un "debitore" e che abbia il campo "legale esterno popolato".
+		// clicca "Modifica fascicolo" sulla prima riga della tabella "Elenco fascicoli affidati" che non ha il "blocco SO" , che sia di un "debitore" e che abbia il campo "legale esterno" popolato.
 		// aspetta la chiusura dello spinner.
 		// verifica di essere atterrato sulla pagina "Crea fascicolo".
 		user.clickModificaFascicoloSuDebitore();
@@ -68,9 +68,10 @@ public class WhenNavigatingToCreazioneFascicolo {
 		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
 		assertTrue(user.getCommonPage().pageHasPageTitle(CommonPage.FASCICOLI_PROVVISORI));
 
-		// controlla che nella tabella "Elenco fascicoli creati" ci sia il fascicolo appena creato.
-		assertTrue(
-				user.verificaFascicoloCreato((String) user.getHeaders().get(LF20UserSteps.HEADER_CREA_FASCICOLO_NDG)));
+		// avvia la lavorazione del fascicolo creato oggi per l'ndg richiesto nella tabella "Elenco fascicoli creati".
+		user.avviaLavorazioneFascicoloCreato((String) user.getHeaders().get(LF20UserSteps.HEADER_CREA_FASCICOLO_NDG));
+		user.getPopupPage().waitForSpinnerAndCourtesyDialog();
+		user.clickButtonSalva();
 
 		try {
 			Thread.sleep(5000);
